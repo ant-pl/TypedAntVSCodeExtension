@@ -26,6 +26,7 @@ jobs:
       run: |
         npm install
         npm install --save-dev webpack-cli  # 安装 webpack-cli
+        npm install -g @vscode/vsce
 
     - name: Build the project
       run: |
