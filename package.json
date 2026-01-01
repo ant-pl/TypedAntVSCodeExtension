@@ -1,0 +1,75 @@
+{
+  "name": "typedant",
+  "displayName": "TypedAnt",
+  "description": "TypedAnt Extension",
+  "icon": "logo.png",
+  "publisher": "LKBaka",
+  "version": "0.1.1",
+  "engines": {
+    "vscode": "^1.107.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "TypedAnt",
+      "properties": {
+        "TypedAnt.Compiler": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the TypedAnt compiler. Default is empty."
+        },
+        "TypedAnt.LSP": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the TypedAnt LSP. Default is empty."
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "TypedAnt",
+        "aliases": [
+          "Ant",
+          "TypedAnt"
+        ],
+        "extensions": [
+          ".ant",
+          ".ta"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "TypedAnt",
+        "scopeName": "source.ant",
+        "path": "./syntaxes/TypedAnt.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "TypedAnt",
+        "path": "./snippets/snippets.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.3",
+    "@types/vscode": "1.107.0",
+    "typescript": "^5.9.3"
+  },
+  "activationEvents": [
+    "onLanguage:TypedAnt"
+  ],
+  "main": "./dist/extension.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "package": "npm run build && vsce package"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
+}

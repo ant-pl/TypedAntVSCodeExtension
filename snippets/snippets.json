@@ -1,0 +1,37 @@
+{
+    "struct": {
+        "prefix": "struct",
+        "body": [
+            "struct $1 {$2}"
+        ],
+        "description": "New Class snippet"
+    },
+    "variable": {
+        "prefix": "let",
+        "body": [
+            "let $1 = $2"
+        ],
+        "description": "New Variable snippet"
+    },
+    "Function": {
+        "prefix": "func",
+        "body": [
+            "func $1($2) -> $3 {$4}"
+        ],
+        "description": "New Function snippet"
+    },
+    "If": {
+        "prefix": "if",
+        "body": [
+            "if $1 {$2}"
+        ],
+        "description": "New If snippet"
+    },
+    "While": {
+        "prefix": "While",
+        "body": [
+            "while $1 {$2}"
+        ],
+        "description": "New While snippet"
+    }
+}
