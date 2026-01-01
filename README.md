@@ -30,7 +30,8 @@ TypedAntVSCodeExtension/
    git clone https://github.com/LKBaka/TypedAntVSCodeExtension.git
    ```
 2. 打开 VS Code 并加载此项目。
-3. 按 `F5` 启动扩展开发主机。
+3. 按 `F5` 启动扩展开发主机。  
+   (注意，请确保配置了编译器本体和 LSP 路径 如果没有编译器本体和 LSP 请前往仓库 typed_ant_lsp, ant_cranelift_compiler 下载并构建)
 4. 如果想要打包扩展 运行 `npm run package`
 
 ## 使用方法
