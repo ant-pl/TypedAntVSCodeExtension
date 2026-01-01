@@ -27,7 +27,7 @@ TypedAntVSCodeExtension/
 ## 安装 & 调试
 1. 克隆此仓库到本地：
    ```bash
-   git clone https://github.com/your-repo/TypedAntVSCodeExtension.git
+   git clone https://github.com/LKBaka/TypedAntVSCodeExtension.git
    ```
 2. 打开 VS Code 并加载此项目。
 3. 按 `F5` 启动扩展开发主机。
