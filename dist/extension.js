@@ -51,20 +51,6 @@ function activate(context) {
     statusBarItem.command = 'TypedAnt.Compile';
     statusBarItem.show();
     context.subscriptions.push(statusBarItem);
-    context.subscriptions.push(vscode_1.default.languages.registerCompletionItemProvider('TypedAnt', {
-        provideCompletionItems(document, position) {
-            // 创建一个CompletionItem数组
-            // const completionItems = [
-            //   new vscode.CompletionItem('print()', vscode.CompletionItemKind.Function),
-            //   new vscode.CompletionItem('len()', vscode.CompletionItemKind.Function),
-            //   new vscode.CompletionItem('input()', vscode.CompletionItemKind.Function),
-            //   new vscode.CompletionItem('clear()', vscode.CompletionItemKind.Function),
-            //   new vscode.CompletionItem('force_exit()', vscode.CompletionItemKind.Function),
-            // ];
-            // 返回CompletionItem数组
-            return [];
-        }
-    }));
     const lspPath = extension_config.get("LSP");
     if (!lspPath) {
         vscode_1.default.window.showErrorMessage("TypedAnt.LSP undefined!");
