@@ -24,15 +24,27 @@ TypedAntVSCodeExtension/
     └── TypedAnt.tmLanguage.json   # TypedAnt 的语法高亮定义
 ```
 
-## 安装 & 调试
+## 安装 & 配置 (使用者)
+1. 从 `VSCode市场` 下载并安装扩展
+2. 请确保你下载并配置好了 `编译器本体` 和 `LSP` 否则 请前往仓库 `typed_ant_lsp`, `ant_cranelift_compiler` 下载并构建
+3. 点击左下角齿轮图标，点击设置，进入设置面板
+4. 上方可能会有两个或多个选项 `用户` `工作区` 请选择 `用户` 选项卡
+5. 在左侧边栏中点击扩展 (不是扩展市场!)，往下滑找到 `TypedAnt`
+6. 您将会看到两个配置。即 `Compiler` 和 `LSP`。在 `Compiler` 中输入你的编译器本体路径，在 `LSP` 中输入您的 LSP 路径，配置就完成了
+
+## 安装 & 调试 (开发者)
 1. 克隆此仓库到本地：
    ```bash
    git clone https://github.com/LKBaka/TypedAntVSCodeExtension.git
    ```
 2. 打开 VS Code 并加载此项目。
 3. 按 `F5` 启动扩展开发主机。  
-   (注意，请确保配置了编译器本体和 LSP 路径 如果没有编译器本体和 LSP 请前往仓库 typed_ant_lsp, ant_cranelift_compiler 下载并构建)
+   (注意，请确保配置了 `编译器本体` 和 `LSP` 路径 如果没有 `编译器本体` 和 `LSP` 请前往仓库 `typed_ant_lsp`, `ant_cranelift_compiler` 下载并构建)
 4. 如果想要打包扩展 运行 `npm run package`
+
+## 如何编译一个文件
+(前置条件: 已配置 `LSP` 和 `编译器本体` 的路径)
+如果已完成前置条件 点击下方的 `Compile TypedAnt` 按钮即可编译 (需要切换到 TypedAnt 文件)
 
 ## 使用方法
 1. 在 VS Code 中打开一个 TypedAnt 项目。
