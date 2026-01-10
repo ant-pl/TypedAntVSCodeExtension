@@ -61,7 +61,7 @@
         "keywords": {
             "patterns": [{
                 "name": "keyword.control.TypedAnt",
-                "match": "(?i)\\b(if|else|while|extern|return|struct|func|let|self|new)\\b"
+                "match": "(?i)\\b(if|else|while|extern|impl|return|struct|func|let|self|new)\\b"
             }]
         },
         "strings": {
