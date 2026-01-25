@@ -1,88 +1,141 @@
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 import { CodeCompiler } from './codeCompiler';
 import { LanguageClient } from 'vscode-languageclient/node';
-import { spawn } from 'child_process';
 
 let codeCompiler: CodeCompiler;
+let client: LanguageClient | undefined;
 
 function setupDefaultConfiguration() {
   const config = vscode.workspace.getConfiguration('TypedAnt');
 
-  // 如果Compiler未设置，则设置默认值
   if (!config.has('Compiler') || config.get('Compiler') === '') {
-    const defaultCompilerPath = ''
-    config.update('Compiler', defaultCompilerPath, vscode.ConfigurationTarget.Global)
-      .then(() => {
-        vscode.window.showInformationMessage(
-          `TypedAnt: 'Compiler' set to default: ${defaultCompilerPath}`
-        );
-      });
+    config.update('Compiler', '', vscode.ConfigurationTarget.Global);
   }
 
-  // 如果LSP未设置，则设置默认值
   if (!config.has('LSP') || config.get('LSP') === '') {
-    const defaultLSPPath = ''
-    config.update('LSP', defaultLSPPath, vscode.ConfigurationTarget.Global)
-      .then(() => {
-        vscode.window.showInformationMessage(
-          `TypedAnt: 'LSP' set to default: ${defaultLSPPath}`
-        );
-      });
+    config.update('LSP', '', vscode.ConfigurationTarget.Global);
   }
 }
 
+/* =======================
+   Language Server Control
+======================= */
 
-function activate(context: vscode.ExtensionContext) {
-  codeCompiler = new CodeCompiler();
+async function startLanguageServer(context: vscode.ExtensionContext) {
+  if (client) {
+    vscode.window.showWarningMessage('TypedAnt LSP already running.');
+    return;
+  }
 
-  // 自动配置默认参数
-  setupDefaultConfiguration()
-
-  const extension_config = vscode.workspace.getConfiguration('TypedAnt');
-
-  // 注册命令
-  context.subscriptions.push(
-    vscode.commands.registerCommand('TypedAnt.Compile', async () => {
-      codeCompiler.compile();
-    }),
-    vscode.commands.registerCommand('TypedAnt.StopExecution', () => {
-      codeCompiler.stopExecution();
-    })
-  );
-
-  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBarItem.text = "$(play) Compile TypedAnt";
-  statusBarItem.command = 'TypedAnt.Compile';
-  statusBarItem.show();
-  context.subscriptions.push(statusBarItem);
-
-  const lspPath = extension_config.get<string>("LSP");
+  const config = vscode.workspace.getConfiguration('TypedAnt');
+  const lspPath = config.get<string>('LSP');
 
   if (!lspPath) {
-    vscode.window.showErrorMessage("TypedAnt.LSP undefined!");
+    vscode.window.showErrorMessage('TypedAnt.LSP undefined!');
     return;
   }
 
   const serverOptions = {
     command: lspPath,
-    args: [],
+    args: []
   };
 
-  const client = new LanguageClient(
+  client = new LanguageClient(
     'typed_ant',
-    'TypedAnt Langauge Server',
+    'TypedAnt Language Server',
     serverOptions,
-    { documentSelector: [{ scheme: 'file', language: 'TypedAnt' }] }
+    {
+      documentSelector: [{ scheme: 'file', language: 'TypedAnt' }]
+    }
   );
 
-  client.start();
-
   context.subscriptions.push(client);
+
+  await client.start();
+
+  vscode.window.showInformationMessage('TypedAnt Language Server started.');
 }
 
-function deactivate() { }
+async function stopLanguageServer() {
+  if (!client) {
+    vscode.window.showWarningMessage('TypedAnt LSP not running.');
+    return;
+  }
 
-module.exports = {
-  activate,
-  deactivate
-};
+  await client.stop();
+  client = undefined;
+
+  vscode.window.showInformationMessage('TypedAnt Language Server stopped.');
+}
+
+async function restartLanguageServer(context: vscode.ExtensionContext) {
+  if (!!client) {
+    await stopLanguageServer();
+  }
+  
+  await startLanguageServer(context);
+}
+
+/* =======================
+          Activate
+======================= */
+
+export function activate(context: vscode.ExtensionContext) {
+  codeCompiler = new CodeCompiler();
+
+  setupDefaultConfiguration();
+
+  context.subscriptions.push(
+
+    vscode.commands.registerCommand('TypedAnt.Compile', () => {
+      codeCompiler.compile();
+    }),
+
+    vscode.commands.registerCommand('TypedAnt.StopExecution', () => {
+      codeCompiler.stopExecution();
+    }),
+
+    vscode.commands.registerCommand('TypedAnt.StartLSP', () => {
+      startLanguageServer(context);
+    }),
+
+    vscode.commands.registerCommand('TypedAnt.StopLSP', () => {
+      stopLanguageServer();
+    }),
+
+    vscode.commands.registerCommand('TypedAnt.RestartLSP', () => {
+      restartLanguageServer(context);
+    })
+  );
+
+  /* Status Bar */
+
+  const compileItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    100
+  );
+
+  compileItem.text = '$(play) Compile TypedAnt';
+  compileItem.command = 'TypedAnt.Compile';
+  compileItem.show();
+
+  context.subscriptions.push(compileItem);
+
+  /* Auto restart on config change */
+
+  vscode.workspace.onDidChangeConfiguration(e => {
+    if (e.affectsConfiguration('TypedAnt.LSP')) {
+      restartLanguageServer(context);
+    }
+  });
+
+  /* Auto start LSP */
+
+  startLanguageServer(context);
+}
+
+export function deactivate() {
+  if (client) {
+    client.stop();
+  }
+}
