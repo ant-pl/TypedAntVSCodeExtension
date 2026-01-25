@@ -16,6 +16,20 @@
     "url": "https://github.com/LKBaka/TypedAntVSCodeExtension"
   },
   "contributes": {
+    "commands": [
+      {
+        "command": "TypedAnt.StartLSP",
+        "title": "TypedAnt: Start Language Server"
+      },
+      {
+        "command": "TypedAnt.StopLSP",
+        "title": "TypedAnt: Stop Language Server"
+      },
+      {
+        "command": "TypedAnt.RestartLSP",
+        "title": "TypedAnt: Restart Language Server"
+      }
+    ],
     "configuration": {
       "title": "TypedAnt",
       "properties": {
@@ -65,7 +79,12 @@
     "typescript": "^5.9.3"
   },
   "activationEvents": [
-    "onLanguage:TypedAnt"
+    "onLanguage:TypedAnt",
+    "onCommand:TypedAnt.StartLSP",
+    "onCommand:TypedAnt.StopLSP",
+    "onCommand:TypedAnt.RestartLSP",
+    "onCommand:TypedAnt.Compile",
+    "onCommand:TypedAnt.StopExecution"
   ],
   "main": "./dist/extension.js",
   "scripts": {
