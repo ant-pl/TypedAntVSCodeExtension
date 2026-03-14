@@ -1,9 +1,9 @@
 node_modules/
 *.vsix
-.vscode/
 .idea/
 .zed/
 .DS_Store
 Thumbs.db
 desktop.ini
 $RECYCLE.BIN/
+.vscode
