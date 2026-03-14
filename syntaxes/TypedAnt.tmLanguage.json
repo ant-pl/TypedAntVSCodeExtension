@@ -2,12 +2,10 @@
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "TypedAnt",
     "scopeName": "source.ant",
-    
     "settings": {
         "foreground": "#D4D4D4",
         "background": "#1E1E1E"
     },
-    
     "tokenColors": [
         {
             "name": "Primitive Types",
@@ -31,18 +29,32 @@
             }
         }
     ],
-    
     "patterns": [
-        {"include": "#purple"},
-        {"include": "#keywords"},
-        {"include": "#strings"},
-        {"include": "#comments"},
-        {"include": "#numeric-literals"},
-        {"include": "#boolean-literals"},
-        {"include": "#variables"},
-        {"include": "#function-names"}
+        {
+            "include": "#purple"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#numeric-literals"
+        },
+        {
+            "include": "#boolean-literals"
+        },
+        {
+            "include": "#variables"
+        },
+        {
+            "include": "#function-names"
+        }
     ],
-    
     "repository": {
         "purple": {
             "name": "storage.type.primitive.TypedAnt",
@@ -53,34 +65,42 @@
             "match": "\\b([a-zA-Z_\\u4e00-\\u9fa5][a-zA-Z0-9_\\u4e00-\\u9fa5]*)\\s*(?=\\()"
         },
         "variables": {
-            "patterns": [{
-                "name": "variable.other.TypedAnt",
-                "match": "\\b([a-zA-Z_\\u4e00-\\u9fa5][a-zA-Z0-9_\\u4e00-\\u9fa5]*)\\b(?![^\\s]*\\()"
-            }]
+            "patterns": [
+                {
+                    "name": "variable.other.TypedAnt",
+                    "match": "\\b([a-zA-Z_\\u4e00-\\u9fa5][a-zA-Z0-9_\\u4e00-\\u9fa5]*)\\b(?![^\\s]*\\()"
+                }
+            ]
         },
         "keywords": {
-            "patterns": [{
-                "name": "keyword.control.TypedAnt",
-                "match": "(?i)\\b(if|else|while|or|and|sizeof|extern|impl|const|return|struct|func|let|self|new)\\b"
-            }]
+            "patterns": [
+                {
+                    "name": "keyword.control.TypedAnt",
+                    "match": "(?i)\\b(if|else|while|or|and|sizeof|as|extern|impl|const|return|struct|func|let|self|new)\\b"
+                }
+            ]
         },
         "strings": {
             "name": "string.quoted.double.TypedAnt",
             "begin": "\"",
             "end": "\"",
-            "patterns": [{
-                "name": "constant.character.escape.TypedAnt",
-                "match": "\\\\."
-            }]
+            "patterns": [
+                {
+                    "name": "constant.character.escape.TypedAnt",
+                    "match": "\\\\."
+                }
+            ]
         },
         "comments": {
             "name": "comment.line.double-slash",
             "begin": "//",
             "end": "\n",
-            "patterns": [{
-                "name": "constant.character.escape.TypedAnt",
-                "match": "\\\\."
-            }]
+            "patterns": [
+                {
+                    "name": "constant.character.escape.TypedAnt",
+                    "match": "\\\\."
+                }
+            ]
         },
         "numeric-literals": {
             "name": "constant.numeric.TypedAnt",
