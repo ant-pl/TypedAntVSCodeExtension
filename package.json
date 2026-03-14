@@ -4,7 +4,7 @@
   "description": "TypedAnt Extension",
   "icon": "logo.png",
   "publisher": "LKBaka",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "engines": {
     "vscode": "^1.107.0"
   },
