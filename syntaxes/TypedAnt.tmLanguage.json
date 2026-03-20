@@ -25,7 +25,7 @@
             "name": "Keywords",
             "scope": "keyword.control.TypedAnt",
             "settings": {
-                "foreground": "#CF8049"
+                "foreground": "#569AD3"
             }
         }
     ],
@@ -76,7 +76,11 @@
             "patterns": [
                 {
                     "name": "keyword.control.TypedAnt",
-                    "match": "(?i)\\b(if|else|while|or|and|sizeof|as|extern|impl|const|return|struct|func|let|self|new)\\b"
+                    "match": "\\b(if|else|while|return)\\b"
+                },
+                {
+                    "name": "storage.type.TypedAnt", 
+                    "match": "\\b(func|let|const|struct|extern|impl|new|as|sizeof)\\b"
                 }
             ]
         },
