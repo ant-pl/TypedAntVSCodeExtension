@@ -80,7 +80,7 @@
                 },
                 {
                     "name": "storage.type.TypedAnt", 
-                    "match": "\\b(func|let|const|struct|extern|impl|new|as|sizeof)\\b"
+                    "match": "\\b(func|let|const|use|struct|extern|impl|new|as|sizeof)\\b"
                 }
             ]
         },
